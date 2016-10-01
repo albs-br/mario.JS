@@ -24,6 +24,7 @@ var mario = {
 	lookingTo: 'right', // 'left' or 'right'
 	spriteNumber: marioSpritesEnum.STANDING,
 	state: 0, // 0: Mario, 1: Super Mario, 2: Luigi, 3: Super Luigi
+	horizontalSpeed: 0,
 	jumpHeight: 0,
 	falling: false
 }
@@ -51,6 +52,13 @@ var gameLoop = function() {
 
 		mario.jumpHeight -= jumpSpeed;
 		mario.Y += jumpSpeed;
+		mario.X += mario.horizontalSpeed;
+		if (mario.X < 0) {
+			mario.X = 0;
+		}
+		else if (mario.X > NES_HORIZONTAL_RES - 16) {
+			mario.X = NES_HORIZONTAL_RES - 16;
+		}
 
 		var yTile = 14 * 16;
 		if (mario.Y > yTile - 32) {
@@ -75,6 +83,13 @@ var gameLoop = function() {
 
 		mario.jumpHeight += jumpSpeed;
 		mario.Y -= jumpSpeed;
+		mario.X += mario.horizontalSpeed;
+		if (mario.X < 0) {
+			mario.X = 0;
+		}
+		else if (mario.X > NES_HORIZONTAL_RES - 16) {
+			mario.X = NES_HORIZONTAL_RES - 16;
+		}
 
 		if (mario.jumpHeight >= maxJumpHeight) {
 			mario.jumpHeight = maxJumpHeight;
@@ -83,58 +98,64 @@ var gameLoop = function() {
 	}
 	else if (gamePad.down) {
 		mario.spriteNumber = marioSpritesEnum.CROUCHING;
+		mario.horizontalSpeed = 0;
 	}
 	else if (!gamePad.left && !gamePad.right) {
 		mario.spriteNumber = marioSpritesEnum.STANDING;
+		mario.horizontalSpeed = 0;
 	}
 	else if (gamePad.right) {
 		mario.lookingTo = 'right';
 
 		if (gamePad.B) {
-			mario.X += 2; // running
+			// running
+			mario.horizontalSpeed = 2;
 		}
 		else {
-			mario.X++;
+			mario.horizontalSpeed = 1;
 		}
+
+		mario.X += mario.horizontalSpeed;
 
 		if (mario.X > NES_HORIZONTAL_RES - 16) {
 			mario.X = NES_HORIZONTAL_RES - 16;
 			mario.spriteNumber = marioSpritesEnum.STANDING;
 		}
 		else {
-			if (mario.X % 3 == 0) {
-				mario.spriteNumber++;
-				if (mario.spriteNumber > marioSpritesEnum.WALKING3) {
-					mario.spriteNumber = marioSpritesEnum.WALKING1;
-				}
-			}
+			walk();
 		}
 	}
 	else if (gamePad.left) {
 		mario.lookingTo = 'left';
 
 		if (gamePad.B) {
-			mario.X -= 2; // running
+			// running
+			mario.horizontalSpeed = -2;
 		}
 		else {
-			mario.X--;
+			mario.horizontalSpeed = -1;
 		}
+
+		mario.X += mario.horizontalSpeed;
 
 		if (mario.X < 0) {
 			mario.X = 0;
 			mario.spriteNumber = marioSpritesEnum.STANDING;
 		}
 		else {
-			if (mario.X % 3 == 0) {
-				mario.spriteNumber++;
-				if (mario.spriteNumber > marioSpritesEnum.WALKING3) {
-					mario.spriteNumber = marioSpritesEnum.WALKING1;
-				}
-			}
+			walk();
 		}
 	}
 	
-
+	function walk() {
+		// Cycling through the step frames
+		if (mario.X % 3 == 0) {
+			mario.spriteNumber++;
+			if (mario.spriteNumber > marioSpritesEnum.WALKING3) {
+				mario.spriteNumber = marioSpritesEnum.WALKING1;
+			}
+		}
+	}
 
 	
 	// Draw sprites
