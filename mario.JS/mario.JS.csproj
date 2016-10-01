@@ -61,9 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="Images\nespadiso1.png" />
     <Content Include="keyboard.js" />
     <Content Include="main.html" />
     <Content Include="main.js" />
+    <Content Include="scenario.js" />
     <Content Include="screen.js" />
     <Content Include="Sprites\NES - Super Mario Bros - Enemies.png" />
     <Content Include="Sprites\NES - Super Mario Bros - Item and Brick Blocks.png" />

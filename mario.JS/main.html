@@ -2,10 +2,14 @@
 <html>
 
 <head>
-	<title>mario.JS 0.1.0</title>
+	<title>mario.JS 0.2.0</title>
 
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" 
 	 integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+    <!-- Trick to force refresh of favicon, as seen in 
+        http://stackoverflow.com/questions/2208933/how-do-i-force-a-favicon-refresh -->
+    <link rel="icon" href="favicon.ico?v=2" />
 </head>
 
 <body>
@@ -13,6 +17,9 @@
 	<canvas id="myCanvas" 
 	 style="border:1px solid #d3d3d3;">
 	Your browser does not support the HTML5 canvas tag.</canvas>
+
+    <!-- Thanks to user darokin of PixelJoint. http://pixeljoint.com/pixelart/28479.htm -->
+    <img id="gamePad" src="Images/nespadiso1.png" />
 
     <div id="up">UP</div>
     <div id="left">LEFT</div>
@@ -25,6 +32,7 @@
     <script src="main.js"></script>
     <script src="screen.js"></script>
     <script src="keyboard.js"></script>
+    <script src="scenario.js"></script>
 
 </body>
 
