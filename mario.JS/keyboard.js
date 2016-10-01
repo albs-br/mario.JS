@@ -1,3 +1,10 @@
+const LEFT_KEY = 37;	// Left Arrow
+const RIGHT_KEY = 39;	// Right Arrow
+const UP_KEY = 38;		// Up Arrow
+const DOWN_KEY = 40;	// Down Arrow
+const B_KEY = 16;		// Shift key
+const A_KEY = 17;		// Ctrl key
+
 var gamePad = {
 	left: false,
 	right: false,
@@ -10,27 +17,27 @@ var gamePad = {
 $(document).keydown(function (e) {
 	//console.info(e.which);
 	switch(e.which) {
-		case 37: // left
+		case LEFT_KEY:
 			gamePad.left = true;
 		break;
 
-		case 38: // up
+		case UP_KEY:
 			gamePad.up = true;
 			break;
 
-		case 39: // right
+		case RIGHT_KEY:
 			gamePad.right = true;
 		break;
 
-		case 40: // down
+		case DOWN_KEY:
 			gamePad.down = true;
 		break;
 
-		case 90: // 'Z' key
+		case B_KEY:
 			gamePad.B = true;
 		break;
 
-		case 88: // 'X' key
+		case A_KEY:
 			gamePad.A = true;
 		break;
 
@@ -41,27 +48,27 @@ $(document).keydown(function (e) {
 
 $(document).keyup(function(e) {
 	switch(e.which) {
-		case 37: // left
+		case LEFT_KEY:
 			gamePad.left = false;
 		break;
 
-		case 38: // up
+		case UP_KEY:
 			gamePad.up = false;
 		break;
 
-		case 39: // right
+		case RIGHT_KEY:
 			gamePad.right = false;
 		break;
 
-		case 40: // down
+		case DOWN_KEY:
 			gamePad.down = false;
 		break;
 
-		case 90: // 'Z' key
+		case B_KEY:
 			gamePad.B = false;
 		break;
 
-		case 88: // 'X' key
+		case A_KEY:
 			gamePad.A = false;
 		break;
 
