@@ -15,7 +15,6 @@ var gamePad = {
 }
 
 $(document).keydown(function (e) {
-	//console.info(e.which);
 	switch(e.which) {
 		case LEFT_KEY:
 			gamePad.left = true;

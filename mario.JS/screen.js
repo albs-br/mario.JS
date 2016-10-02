@@ -12,46 +12,16 @@ function clearScreen() {
 
 	for (col = 0; col < scenario.length; col++) {
 
-		//console.info(scenario[col]);
-		//break;
-		var line = 0;
-		for (item = 0; item < scenario[col].length; item++) {
+		for (line = 0; line < scenario[col].length; line++) {
 
-			//console.info(line);
-
-			var tile = scenario[col][item];
-			//console.info(tile);
+			var tile = scenario[col][line];
 
 			if (tile != null) {
-				if (tile.constructor === Array) {
-					//console.info('Array');
-					var repeatTile = tile[0];
-					var repeatNumber = tile[1];
-					//console.info(repeatNumber);
-					if (repeatTile != null) {
-						for (i = 0; i < repeatNumber; i++) {
-
-							console.info("(line + i): " + (line + i));
-
-							var tileX = repeatTile;
-							var tileY = 0;
-							drawTile(tileX, tileY, col * 16, (line + i) * 16);
-						}
-					}
-
-					line += repeatNumber - 1;
-				}
-				else {
-					var tileX = tile;
-					var tileY = 0;
-					drawTile(tileX, tileY, col * 16, line * 16);
-				}
+				var tileX = tile;
+				var tileY = 0;
+				drawTile(tileX, tileY, col * 16, line * 16);
 			}
-
-			line++;
 		}
-
-		//break;
 	}
 
 }

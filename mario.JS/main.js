@@ -2,10 +2,19 @@
 const NES_HORIZONTAL_RES = 256; // 16 tiles
 const NES_VERTICAL_RES = 240; // 15 tiles
 
-var c = $("#myCanvas")[0];
-c.width = NES_HORIZONTAL_RES;
-c.height = NES_VERTICAL_RES;
-var ctx = c.getContext("2d");
+var ctx;
+
+var gameInit = function() {
+	var c = $("#myCanvas")[0];
+	c.width = NES_HORIZONTAL_RES;
+	c.height = NES_VERTICAL_RES;
+	ctx = c.getContext("2d");
+
+	loadScenario();
+
+	window.setInterval(gameLoop, 25);
+}
+
 
 var gameLoop = function() {
 	
@@ -143,7 +152,6 @@ var gameLoop = function() {
 	//drawMario(mario.spriteNumber, 3, mario.X, 80, mario.lookingTo);
 }
 
-//$(gameLoop);
 $(function () {
-	window.setInterval(gameLoop, 25);
+	gameInit();
 });

@@ -1,6 +1,6 @@
 ﻿// Each line of the scenario array represents one column of tiles on screen
 // each screen column has 15 tiles (16x16 pixels each)
-var scenario = [
+var packedScenario = [
 	// For example, this line represents 14 tiles blank (null), and the last tile 
 	// with the first (index 0) tile of the tileset sheet (Tileset.png)
 	[null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0],
@@ -31,3 +31,36 @@ var scenario = [
 	[[null, 14], 0]
 
 ];
+
+var scenario = [];
+
+function loadScenario() {
+
+	for (col = 0; col < packedScenario.length; col++) {
+
+		colArray = [];
+
+		var line = 0;
+		for (item = 0; item < packedScenario[col].length; item++) {
+
+			var tile = packedScenario[col][item];
+
+			if (tile != null && tile.constructor === Array) {
+				var repeatedTile = tile[0];
+				var repeatNumber = tile[1];
+				for (i = 0; i < repeatNumber; i++) {
+					colArray.push(repeatedTile);
+				}
+
+				line += repeatNumber - 1;
+			}
+			else {
+				colArray.push(tile);
+			}
+
+			line++;
+		}
+
+		scenario.push(colArray);
+	}
+}
