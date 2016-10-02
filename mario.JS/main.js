@@ -10,7 +10,7 @@ var gameInit = function() {
 	c.height = NES_VERTICAL_RES;
 	ctx = c.getContext("2d");
 
-	loadScenario();
+	loadScenario(scenario_1);
 
 	window.setInterval(gameLoop, 25);
 }
