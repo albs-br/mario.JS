@@ -3,6 +3,7 @@ const NES_HORIZONTAL_RES = 256; // 16 tiles
 const NES_VERTICAL_RES = 240; // 15 tiles
 
 var ctx;
+var timer;
 
 var gameInit = function() {
 	var c = $("#myCanvas")[0];
@@ -12,7 +13,7 @@ var gameInit = function() {
 
 	loadScenario(scenario_1);
 
-	window.setInterval(gameLoop, 25);
+	timer = window.setInterval(gameLoop, 25);
 }
 
 
@@ -47,11 +48,22 @@ var gameLoop = function() {
 			mario.X = NES_HORIZONTAL_RES - 16;
 		}
 
-		var yTile = 14 * 16;
-		if (mario.Y > yTile - 32) {
-			mario.Y = yTile - 32;
+		//var yTile = 14 * 16;
+		//if (mario.Y > yTile - 32) {
+		//	mario.Y = yTile - 32;
+		//	mario.falling = false;
+		//	mario.jumpHeight = 0;
+		//}
+		if (testCollisionScenario(mario)) {
+			// Undo move
+			mario.Y -= jumpSpeed;
 			mario.falling = false;
 			mario.jumpHeight = 0;
+		}
+
+		if (mario.Y > NES_VERTICAL_RES) {
+			console.info('GAME OVER');
+			window.clearInterval(timer);
 		}
 	}
 	else if (mario.isJumping() && !gamePad.A) { // released the jump button during a jump
@@ -108,6 +120,11 @@ var gameLoop = function() {
 			mario.X = NES_HORIZONTAL_RES - 16;
 			mario.spriteNumber = marioSpritesEnum.STANDING;
 		}
+		else if (testCollisionScenario(mario)) {
+			// Undo move
+			mario.X -= mario.horizontalSpeed;
+			mario.spriteNumber = marioSpritesEnum.STANDING;
+		}
 		else {
 			walk();
 		}
@@ -127,6 +144,11 @@ var gameLoop = function() {
 
 		if (mario.X < 0) {
 			mario.X = 0;
+			mario.spriteNumber = marioSpritesEnum.STANDING;
+		}
+		else if (testCollisionScenario(mario)) {
+			// Undo move
+			mario.X -= mario.horizontalSpeed;
 			mario.spriteNumber = marioSpritesEnum.STANDING;
 		}
 		else {

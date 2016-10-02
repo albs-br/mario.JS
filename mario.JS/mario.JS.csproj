@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="collisionDetection.js" />
     <Content Include="favicon.ico" />
     <Content Include="Images\nespadiso1.png" />
     <Content Include="keyboard.js" />
