@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="box.js" />
     <Content Include="collisionDetection.js" />
     <Content Include="favicon.ico" />
     <Content Include="Images\nespadiso1.png" />
@@ -57,6 +58,14 @@
     <Content Include="Sprites\NES - Super Mario Bros - World 1-1.png" />
     <Content Include="Sprites\sprites - Cópia.png" />
     <Content Include="Sprites\Mario.png" />
+    <Content Include="Tests\jasmine-2.5.2\boot.js" />
+    <Content Include="Tests\jasmine-2.5.2\console.js" />
+    <Content Include="Tests\jasmine-2.5.2\jasmine-html.js" />
+    <Content Include="Tests\jasmine-2.5.2\jasmine.css" />
+    <Content Include="Tests\jasmine-2.5.2\jasmine.js" />
+    <Content Include="Tests\jasmine-2.5.2\jasmine_favicon.png" />
+    <Content Include="Tests\SpecRunner.html" />
+    <Content Include="Tests\specs\collisionDetectionSpec.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
