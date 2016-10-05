@@ -1,11 +1,16 @@
 ﻿describe("collisionDetection", function () {
-	//var player;
-	//var song;
+	var box1, box2;
 
-	//beforeEach(function () {
-	//	player = new Player();
-	//	song = new Song();
-	//});
+	beforeEach(function () {
+		// These boxes are overlapping
+		box1 = new Box(12, 9, 30, 15);
+		box2 = new Box(22, 12, 29, 8);
+
+		//TODO:
+		// Boxes without contact
+		//box3
+		//box4
+	});
 
 	// just to verifiy if jasmine is working ok
 	it("1 + 1", function () {
@@ -14,13 +19,57 @@
 
 	it("basic box testing", function () {
 		// Arrange
-		var box1 = new Box(10, 5, 20, 10);
 
 		// Act & Assert
-		expect(box1.left()).toEqual(10);
-		expect(box1.right()).toEqual(29);
-		expect(box1.top()).toEqual(5);
-		expect(box1.bottom()).toEqual(14);
+		expect(box1.left()).toEqual(12);
+		expect(box1.right()).toEqual(41);
+		expect(box1.top()).toEqual(9);
+		expect(box1.bottom()).toEqual(23);
+		expect(box1.topLeft().X).toEqual(12);
+		expect(box1.topLeft().Y).toEqual(9);
+		expect(box1.topRight().X).toEqual(41);
+		expect(box1.topRight().Y).toEqual(9);
+		expect(box1.bottomLeft().X).toEqual(12);
+		expect(box1.bottomLeft().Y).toEqual(23);
+		expect(box1.bottomRight().X).toEqual(41);
+		expect(box1.bottomRight().Y).toEqual(23);
+
+		expect(box2.left()).toEqual(22);
+		expect(box2.right()).toEqual(50);
+		expect(box2.top()).toEqual(12);
+		expect(box2.bottom()).toEqual(19);
+	});
+
+	it("pixel in box", function () {
+		// Arrange
+
+		// Act & Assert
+		expect(pixelInBox(box1.left(), box1.top(), box1)).toEqual(true); // Edge pixel should return true
+		expect(pointInBox(box1.topLeft(), box1)).toEqual(true);
+
+		expect(pixelInBox(box1.left(), box1.top(), box2)).toEqual(false);
+		expect(pixelInBox(box1.right(), box1.top(), box2)).toEqual(false);
+		expect(pixelInBox(box1.left(), box1.bottom(), box2)).toEqual(false);
+		expect(pixelInBox(box1.right(), box1.bottom(), box2)).toEqual(false);
+
+		expect(pixelInBox(box2.left(), box2.top(), box1)).toEqual(true);
+		expect(pixelInBox(box2.right(), box2.top(), box1)).toEqual(false);
+		expect(pixelInBox(box2.left(), box2.bottom(), box1)).toEqual(true);
+		expect(pixelInBox(box2.right(), box2.bottom(), box1)).toEqual(false);
+	});
+
+	it("colision returns bool", function () {
+		// Arrange
+
+		// Act & Assert
+		expect(testCollision_bool(box1, box2)).toEqual(true);
+	});
+
+	it("colision returns overlapping box", function () {
+		// Arrange
+
+		// Act & Assert
+		expect(testCollision_box(box1, box2).topLeft()).toEqual(box2.topLeft());
 	});
 
 	//describe("when song has been paused", function () {

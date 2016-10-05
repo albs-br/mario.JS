@@ -46,6 +46,7 @@
     <Content Include="main.html" />
     <Content Include="main.js" />
     <Content Include="mario.js" />
+    <Content Include="point.js" />
     <Content Include="scenario.js" />
     <Content Include="screen.js" />
     <Content Include="Sprites\NES - Super Mario Bros - Enemies.png" />

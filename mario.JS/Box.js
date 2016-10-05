@@ -6,6 +6,8 @@
 		this.height = height;
 	}
 	
+
+
 	left() {
 		return this.X;
 	}
@@ -20,5 +22,23 @@
 	
 	bottom() {
 		return this.Y + this.height - 1;
+	}
+
+
+
+	topLeft() {
+		return new Point(this.left(), this.top());
+	}
+
+	topRight() {
+		return new Point(this.right(), this.top());
+	}
+
+	bottomLeft() {
+		return new Point(this.left(), this.bottom());
+	}
+
+	bottomRight() {
+		return new Point(this.right(), this.bottom());
 	}
 }
