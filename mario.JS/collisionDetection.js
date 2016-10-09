@@ -22,11 +22,18 @@ function testCollision_bool(box1, box2) {
 }
 
 function testCollision_box(box1, box2) {
-	// returns rectangle
+
+	if (!testCollision_bool(box1, box2)) return null;
+	
+	// returns intersection rectangle
 	var x, y, width, height;
 	if (pointInBox(box2.topLeft(), box1)) {
 		x = box2.topLeft().X;
 		y = box2.topLeft().Y;
+		width = box1.right() - box2.X + 1;
+		height = box2.height;
+
+		return new Box(x, y, width, height);
 	}
 }
 

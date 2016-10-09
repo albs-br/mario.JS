@@ -2,6 +2,8 @@
 	var box1, box2;
 
 	beforeEach(function () {
+		box1pixel = new Box(5, 5, 1, 1);
+
 		// These boxes are overlapping
 		box1 = new Box(12, 9, 30, 15);
 		box2 = new Box(22, 12, 29, 8);
@@ -15,6 +17,22 @@
 	// just to verifiy if jasmine is working ok
 	it("1 + 1", function () {
 		expect(1 + 1).toEqual(2);
+	});
+
+	it("1 pixel box testing", function () {
+		// Act & Assert
+		expect(box1pixel.left()).toEqual(5);
+		expect(box1pixel.right()).toEqual(5);
+		expect(box1pixel.top()).toEqual(5);
+		expect(box1pixel.bottom()).toEqual(5);
+		expect(box1pixel.topLeft().X).toEqual(5);
+		expect(box1pixel.topLeft().Y).toEqual(5);
+		expect(box1pixel.topRight().X).toEqual(5);
+		expect(box1pixel.topRight().Y).toEqual(5);
+		expect(box1pixel.bottomLeft().X).toEqual(5);
+		expect(box1pixel.bottomLeft().Y).toEqual(5);
+		expect(box1pixel.bottomRight().X).toEqual(5);
+		expect(box1pixel.bottomRight().Y).toEqual(5);
 	});
 
 	it("basic box testing", function () {
@@ -65,11 +83,20 @@
 		expect(testCollision_bool(box1, box2)).toEqual(true);
 	});
 
-	it("colision returns overlapping box", function () {
+	it("colision returns intersection box", function () {
 		// Arrange
 
-		// Act & Assert
-		expect(testCollision_box(box1, box2).topLeft()).toEqual(box2.topLeft());
+		// Act
+		var intersection = testCollision_box(box1, box2);
+
+		// Assert
+		expect(intersection.X).toEqual(22);
+		expect(intersection.Y).toEqual(12);
+		expect(intersection.width).toEqual(20);
+		expect(intersection.height).toEqual(8);
+		expect(intersection.topLeft()).toEqual(box2.topLeft());
+		expect(intersection.right()).toEqual(box1.right());
+		expect(intersection.bottom()).toEqual(box2.bottom());
 	});
 
 	//describe("when song has been paused", function () {
