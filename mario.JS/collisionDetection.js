@@ -9,16 +9,39 @@ function pointInBox(point, box) {
 }
 
 function testCollision_bool(box1, box2) {
+	//console.info("box1.left(): " + box1.left());
+	//console.info("box1.right(): " + box1.right());
+	//console.info("box2.left(): " + box2.left());
+	//console.info("box2.right(): " + box2.right());
+
+	//console.info("box1.top(): " + box1.top());
+	//console.info("box2.top(): " + box2.top());
+	//console.info("box1.bottom(): " + box1.bottom());
+	//console.info("box2.bottom(): " + box2.bottom());
+
 	// returns bool
 	return (
 		//test if any of the corners of box1 is inside box2
-		pixelInBox(box1.left(), box1.top(), box2) || pixelInBox(box1.left(), box1.bottom(), box2) ||
-		pixelInBox(box1.right(), box1.top(), box2) || pixelInBox(box1.right(), box1.bottom(), box2) ||
+		testCollision_corner_inside_box(box1, box2) ||
 		
 		//test if any of the corners of box2 is inside box1
-		pixelInBox(box2.left(), box2.top(), box1) || pixelInBox(box2.left(), box2.bottom(), box1) ||
-		pixelInBox(box2.right(), box2.top(), box1) || pixelInBox(box2.right(), box2.bottom(), box1)
+		testCollision_corner_inside_box(box2, box1) ||
+
+		//test if one box pass throught the other (no corner inside)
+		testCollision_box_pass_through(box1, box2) ||
+		testCollision_box_pass_through(box2, box1)
 		);
+}
+
+function testCollision_corner_inside_box(box1, box2) {
+	return (pixelInBox(box1.left(), box1.top(), box2) || pixelInBox(box1.left(), box1.bottom(), box2) ||
+			pixelInBox(box1.right(), box1.top(), box2) || pixelInBox(box1.right(), box1.bottom(), box2));
+}
+
+function testCollision_box_pass_through(box1, box2) {
+	return (box1.left() >= box2.left() && box1.left() <= box2.right() &&
+			box1.right() >= box2.left() && box1.right() <= box2.right() &&
+			box1.top() <= box2.top() && box1.bottom() >= box2.bottom());
 }
 
 function testCollision_box(box1, box2) {

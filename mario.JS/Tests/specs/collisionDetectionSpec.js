@@ -4,14 +4,18 @@
 	beforeEach(function () {
 		box1pixel = new Box(5, 5, 1, 1);
 
-		// These boxes are overlapping
+		// These boxes are overlapping, left corners of box2 inside box1
 		box1 = new Box(12, 9, 30, 15);
 		box2 = new Box(22, 12, 29, 8);
 
+		// Boxes with no corner inside other, but each one passes through the other
+		box3 = new Box(10, 20, 30, 10);
+		box4 = new Box(20, 10, 10, 30);
+
 		//TODO:
 		// Boxes without contact
-		//box3
-		//box4
+		box5 = new Box(10, 20, 10, 10);
+		box6 = new Box(20, 20, 10, 10);
 	});
 
 	// just to verifiy if jasmine is working ok
@@ -74,13 +78,40 @@
 		expect(pixelInBox(box2.right(), box2.top(), box1)).toEqual(false);
 		expect(pixelInBox(box2.left(), box2.bottom(), box1)).toEqual(true);
 		expect(pixelInBox(box2.right(), box2.bottom(), box1)).toEqual(false);
+
+		expect(pixelInBox(box4.left(), box4.top(), box3)).toEqual(false);
+		expect(pixelInBox(box4.right(), box4.top(), box3)).toEqual(false);
+		expect(pixelInBox(box4.left(), box4.bottom(), box3)).toEqual(false);
+		expect(pixelInBox(box4.right(), box4.bottom(), box3)).toEqual(false);
+
+		expect(pixelInBox(box3.left(), box3.top(), box4)).toEqual(false);
+		expect(pixelInBox(box3.right(), box3.top(), box4)).toEqual(false);
+		expect(pixelInBox(box3.left(), box3.bottom(), box4)).toEqual(false);
+		expect(pixelInBox(box3.right(), box3.bottom(), box4)).toEqual(false);
 	});
 
-	it("colision returns bool", function () {
+	it("colision returns bool, box with corner inside other", function () {
 		// Arrange
 
 		// Act & Assert
 		expect(testCollision_bool(box1, box2)).toEqual(true);
+		expect(testCollision_bool(box2, box1)).toEqual(true);
+	});
+
+	it("colision returns bool, boxes with no corner inside other, but each one passes through the other", function () {
+		// Arrange
+
+		// Act & Assert
+		expect(testCollision_bool(box3, box4)).toEqual(true);
+		expect(testCollision_bool(box4, box3)).toEqual(true);
+	});
+
+	it("colision returns bool, boxes without contact", function () {
+		// Arrange
+
+		// Act & Assert
+		expect(testCollision_bool(box5, box6)).toEqual(false);
+		expect(testCollision_bool(box6, box5)).toEqual(false);
 	});
 
 	it("colision returns intersection box", function () {
