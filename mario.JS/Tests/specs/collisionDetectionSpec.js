@@ -1,5 +1,5 @@
 ﻿describe("collisionDetection", function () {
-	var box1, box2;
+	var box1, box2, box3, box4, box5, box6;
 
 	beforeEach(function () {
 		box1pixel = new Box(5, 5, 1, 1);
@@ -12,7 +12,6 @@
 		box3 = new Box(10, 20, 30, 10);
 		box4 = new Box(20, 10, 10, 30);
 
-		//TODO:
 		// Boxes without contact
 		box5 = new Box(10, 20, 10, 10);
 		box6 = new Box(20, 20, 10, 10);
@@ -126,8 +125,38 @@
 		expect(intersection.width).toEqual(20);
 		expect(intersection.height).toEqual(8);
 		expect(intersection.topLeft()).toEqual(box2.topLeft());
+		expect(intersection.bottomLeft()).toEqual(box2.bottomLeft());
+		expect(intersection.left()).toEqual(box2.left());
 		expect(intersection.right()).toEqual(box1.right());
+		expect(intersection.top()).toEqual(box2.top());
 		expect(intersection.bottom()).toEqual(box2.bottom());
+	});
+
+	it("colision returns intersection box, boxes with no corner inside other", function () {
+		// Arrange
+
+		// Act
+		var intersection = testCollision_box(box3, box4);
+
+		// Assert
+		expect(intersection.X).toEqual(20);
+		expect(intersection.Y).toEqual(20);
+		expect(intersection.width).toEqual(10);
+		expect(intersection.height).toEqual(10);
+		expect(intersection.left()).toEqual(box4.left());
+		expect(intersection.right()).toEqual(box4.right());
+		expect(intersection.top()).toEqual(box3.top());
+		expect(intersection.bottom()).toEqual(box3.bottom());
+	});
+
+	it("colision returns null, boxes without contact", function () {
+		// Arrange
+
+		// Act
+		var intersection = testCollision_box(box5, box6);
+
+		// Assert
+		expect(intersection).toBeNull();
 	});
 
 	//describe("when song has been paused", function () {

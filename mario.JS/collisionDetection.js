@@ -50,14 +50,13 @@ function testCollision_box(box1, box2) {
 	
 	// returns intersection rectangle
 	var x, y, width, height;
-	if (pointInBox(box2.topLeft(), box1)) {
-		x = box2.topLeft().X;
-		y = box2.topLeft().Y;
-		width = box1.right() - box2.X + 1;
-		height = box2.height;
 
-		return new Box(x, y, width, height);
-	}
+	x = Math.max(box1.X, box2.X);
+	y = Math.max(box1.Y, box2.Y);
+	width = Math.min(box1.right(), box2.right()) - x + 1;
+	height = Math.min(box1.bottom(), box2.bottom()) - y + 1;
+
+	return new Box(x, y, width, height);
 }
 
 function testCollisionScenario(box) {
