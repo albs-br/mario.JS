@@ -113,7 +113,7 @@
 		expect(testCollision_bool(box6, box5)).toEqual(false);
 	});
 
-	it("colision returns intersection box", function () {
+	it("colision returns intersection box, hit at right", function () {
 		// Arrange
 
 		// Act
@@ -130,6 +130,29 @@
 		expect(intersection.right()).toEqual(box1.right());
 		expect(intersection.top()).toEqual(box2.top());
 		expect(intersection.bottom()).toEqual(box2.bottom());
+		expect(intersection.hitPosition).toEqual('right');
+		
+	});
+
+	it("colision returns intersection box, hit at left", function () {
+		// Arrange
+
+		// Act
+		var intersection = testCollision_box(box2, box1);
+
+		// Assert
+		expect(intersection.X).toEqual(22);
+		expect(intersection.Y).toEqual(12);
+		expect(intersection.width).toEqual(20);
+		expect(intersection.height).toEqual(8);
+		//expect(intersection.topLeft()).toEqual(box1.topLeft());
+		//expect(intersection.bottomLeft()).toEqual(box1.bottomLeft());
+		expect(intersection.left()).toEqual(box2.left());
+		expect(intersection.right()).toEqual(box1.right());
+		expect(intersection.top()).toEqual(box2.top());
+		expect(intersection.bottom()).toEqual(box2.bottom());
+		expect(intersection.hitPosition).toEqual('left');
+
 	});
 
 	it("colision returns intersection box, boxes with no corner inside other", function () {
@@ -147,6 +170,7 @@
 		expect(intersection.right()).toEqual(box4.right());
 		expect(intersection.top()).toEqual(box3.top());
 		expect(intersection.bottom()).toEqual(box3.bottom());
+		expect(intersection.hitPosition).toEqual('top&bottom');
 	});
 
 	it("colision returns null, boxes without contact", function () {

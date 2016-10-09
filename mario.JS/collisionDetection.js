@@ -8,6 +8,7 @@ function pointInBox(point, box) {
 	return pixelInBox(point.X, point.Y, box);
 }
 
+// returns bool
 function testCollision_bool(box1, box2) {
 	//console.info("box1.left(): " + box1.left());
 	//console.info("box1.right(): " + box1.right());
@@ -19,7 +20,6 @@ function testCollision_bool(box1, box2) {
 	//console.info("box1.bottom(): " + box1.bottom());
 	//console.info("box2.bottom(): " + box2.bottom());
 
-	// returns bool
 	return (
 		//test if any of the corners of box1 is inside box2
 		testCollision_corner_inside_box(box1, box2) ||
@@ -44,11 +44,11 @@ function testCollision_box_pass_through(box1, box2) {
 			box1.top() <= box2.top() && box1.bottom() >= box2.bottom());
 }
 
+// returns intersection rectangle
 function testCollision_box(box1, box2) {
 
 	if (!testCollision_bool(box1, box2)) return null;
 	
-	// returns intersection rectangle
 	var x, y, width, height;
 
 	x = Math.max(box1.X, box2.X);
@@ -56,7 +56,45 @@ function testCollision_box(box1, box2) {
 	width = Math.min(box1.right(), box2.right()) - x + 1;
 	height = Math.min(box1.bottom(), box2.bottom()) - y + 1;
 
-	return new Box(x, y, width, height);
+	var output = new Box(x, y, width, height);
+
+	output.hitPositionH = null;
+	output.hitPositionV = null;
+
+	if (output.right() == box1.right() && output.left() == box1.left()) {
+		output.hitPositionH = 'left&right';
+	}
+	else if (output.right() == box1.right()) {
+		output.hitPositionH = 'right';
+	}
+	else if (output.left() == box1.left()) {
+		output.hitPositionH = 'left';
+	}
+
+	if (output.top() == box1.top() && output.bottom() == box1.bottom()) {
+		output.hitPositionV = 'top&bottom';
+	}
+	else if (output.top() == box1.top()) {
+		output.hitPositionV = 'top';
+	}
+	else if (output.bottom() == box1.bottom()) {
+		output.hitPositionV = 'bottom';
+	}
+
+	// hit at diagonal, check what side prevails
+	if (output.hitPositionH != null && output.hitPositionV != null) {
+		if (output.width >= output.height) {
+			output.hitPosition = output.hitPositionH;
+		}
+		else {
+			output.hitPosition = output.hitPositionV;
+		}
+	}
+	else {
+		output.hitPosition = output.hitPositionH || output.hitPositionV; // Javascript null coalescing
+	}
+
+	return output;
 }
 
 function testCollisionScenario(box) {
