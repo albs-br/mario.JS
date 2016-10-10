@@ -167,13 +167,33 @@
 		expect(intersection.Y).toEqual(9);
 		expect(intersection.width).toEqual(20);
 		expect(intersection.height).toEqual(4);
-		//expect(intersection.topLeft()).toEqual(box2.topLeft());
 		expect(intersection.bottomLeft()).toEqual(box2.bottomLeft());
 		expect(intersection.left()).toEqual(box2.left());
 		expect(intersection.right()).toEqual(box1.right());
 		expect(intersection.top()).toEqual(box1.top());
 		expect(intersection.bottom()).toEqual(box2.bottom());
 		expect(intersection.hitPosition).toEqual('top');
+	});
+
+	it("colision returns intersection box, hit at top right (mostly right)", function () {
+		// Arrange
+		box1 = new Box(12, 9, 30, 15);
+		box2 = new Box(38, 5, 5, 10);
+
+		// Act
+		var intersection = testCollision_box(box1, box2);
+
+		// Assert
+		expect(intersection.X).toEqual(38);
+		expect(intersection.Y).toEqual(9);
+		expect(intersection.width).toEqual(4);
+		expect(intersection.height).toEqual(6);
+		expect(intersection.bottomLeft()).toEqual(box2.bottomLeft());
+		expect(intersection.left()).toEqual(box2.left());
+		expect(intersection.right()).toEqual(box1.right());
+		expect(intersection.top()).toEqual(box1.top());
+		expect(intersection.bottom()).toEqual(box2.bottom());
+		expect(intersection.hitPosition).toEqual('right');
 	});
 
 	it("colision returns intersection box, boxes with no corner inside other", function () {
