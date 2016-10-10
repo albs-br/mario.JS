@@ -71,6 +71,10 @@ function testCollision_box(box1, box2) {
 		output.hitPositionH = 'left';
 	}
 
+	//console.info('output.top(): ' + output.top());
+	//console.info('output.bottom(): ' + output.bottom());
+	//console.info('box1.bottom(): ' + box1.bottom());
+
 	if (output.top() == box1.top() && output.bottom() == box1.bottom()) {
 		output.hitPositionV = 'top&bottom';
 	}
@@ -81,13 +85,17 @@ function testCollision_box(box1, box2) {
 		output.hitPositionV = 'bottom';
 	}
 
+	//console.info('output.hitPositionH: ' + output.hitPositionH);
+	//console.info('output.hitPositionV: ' + output.hitPositionV);
+
 	// hit at diagonal, check what side prevails
-	if (output.hitPositionH != null && output.hitPositionV != null) {
+	if (output.hitPositionH != null && output.hitPositionV != null &&
+		output.hitPositionH != 'left&right' && output.hitPositionV != 'top&bottom') {
 		if (output.width >= output.height) {
-			output.hitPosition = output.hitPositionH;
+			output.hitPosition = output.hitPositionV;
 		}
 		else {
-			output.hitPosition = output.hitPositionV;
+			output.hitPosition = output.hitPositionH;
 		}
 	}
 	else {
